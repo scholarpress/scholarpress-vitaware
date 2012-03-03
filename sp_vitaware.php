@@ -60,7 +60,6 @@ class Scholarpress_Vitaware {
 
         $html = '';        
         if (($html = apc_fetch('sp-zotero-cv-'.$user)) === false){        
-        	echo ".";
         	$html .= $this->get_cv($user);
         	// cache CV for one hour
 			apc_store('sp-zotero-cv-'.$user, $html, 3600);
@@ -72,4 +71,4 @@ class Scholarpress_Vitaware {
 
 endif;
 
-$scholarpress_vitaware = new Scholarpress_Vitaware ();
+$scholarpress_vitaware = new Scholarpress_Vitaware();
