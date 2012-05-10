@@ -56,15 +56,19 @@ class Scholarpress_Vitaware {
     		'user' => '',
     	), $atts));
 
-// TODO: check for APC
 
-        $html = '';        
-        if (($html = apc_fetch('sp-zotero-cv-'.$user)) === false){        
-        	$html .= $this->get_cv($user);
-        	// cache CV for one hour
-			apc_store('sp-zotero-cv-'.$user, $html, 3600);
+        $html = '';
+	    if(!function_exists('apc_cache_info')) {
+	        $html .= $this->get_cv($user);
+	    }
+	    else {
+            if (($html = apc_fetch('sp-zotero-cv-'.$user)) === false){        
+            	$html .= $this->get_cv($user);
+            	// cache CV for one hour
+    			apc_store('sp-zotero-cv-'.$user, $html, 3600);
+            }
         }
-          
+
         return $html; 
     }
 }
